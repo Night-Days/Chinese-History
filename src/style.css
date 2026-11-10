@@ -1,0 +1,322 @@
+/* ============================================================
+   汴京梦华 · 设计系统
+   宣纸为底，墨色为骨，朱砂为印，天青为魄
+   ============================================================ */
+
+:root {
+  /* 纸与墨 */
+  --paper: #f4eddf;
+  --paper-2: #ece1cd;
+  --paper-3: #e3d6bd;
+  --ink: #191713;
+  --ink-soft: #423b33;
+  --ink-mute: #6f665a;
+  --ink-faint: #9a9184;
+
+  /* 点缀 */
+  --cinnabar: #9c3b2e;
+  --cinnabar-deep: #7c2b21;
+  --celadon: #7f9d95;
+  --celadon-soft: #d5e0da;
+  --gold: #a98a55;
+
+  --line: rgba(25, 23, 19, 0.13);
+  --line-soft: rgba(25, 23, 19, 0.07);
+
+  /* 字体 */
+  --serif: "Source Han Serif SC", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC",
+    "STSong", "SimSun", "Times New Roman", serif;
+  --kai: "Kaiti SC", "STKaiti", "KaiTi", "楷体", "FangSong", "STFangsong", var(--serif);
+
+  /* 尺寸 */
+  --sp: clamp(56px, 9vw, 132px);
+  --gutter: clamp(20px, 5vw, 64px);
+  --max: 1280px;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 16px;
+  line-height: 1.9;
+  letter-spacing: 0.015em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* 宣纸肌理：细纤维 + 极淡的斑驳 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='0.32'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+::selection {
+  background: rgba(156, 59, 46, 0.18);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--cinnabar);
+  outline-offset: 4px;
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--paper-2);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(25, 23, 19, 0.22);
+  border: 3px solid var(--paper-2);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(25, 23, 19, 0.38);
+}
+
+/* ============================ 版式工具 ============================ */
+
+.wrap {
+  width: 100%;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  position: relative;
+  z-index: 1;
+  padding-block: var(--sp);
+}
+
+.section--tight {
+  padding-block: calc(var(--sp) * 0.62);
+}
+
+.hairline {
+  height: 1px;
+  background: var(--line);
+  border: 0;
+  margin: 0;
+}
+
+/* 章节标题 */
+.sec-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  gap: clamp(24px, 5vw, 80px);
+  align-items: start;
+  margin-bottom: clamp(36px, 5vw, 68px);
+}
+
+.sec-head__no {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  font-family: var(--kai);
+  color: var(--cinnabar);
+}
+
+.sec-head__no span:first-child {
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1;
+}
+
+.sec-head__no span:last-child {
+  font-size: 11px;
+  letter-spacing: 0.42em;
+  color: var(--ink-faint);
+  font-family: var(--serif);
+  text-transform: uppercase;
+}
+
+.sec-head__title {
+  font-size: clamp(30px, 4.2vw, 54px);
+  line-height: 1.24;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  margin: 14px 0 0;
+}
+
+.sec-head__en {
+  font-family: var(--serif);
+  font-size: 11px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: 16px;
+}
+
+.sec-head__lead {
+  margin: 0;
+  font-size: clamp(15px, 1.35vw, 17.5px);
+  line-height: 2.15;
+  color: var(--ink-soft);
+  text-align: justify;
+  max-width: 62ch;
+}
+
+.sec-head__lead::first-letter {
+  font-size: 2.7em;
+  float: left;
+  line-height: 1;
+  margin: 6px 12px 0 0;
+  color: var(--cinnabar);
+  font-family: var(--kai);
+}
+
+/* 竖排 */
+.vertical {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+
+/* 印章 */
+.seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  padding: 5px;
+  background: var(--cinnabar);
+  color: #f7f1e4;
+  font-family: var(--kai);
+  font-size: 10px;
+  line-height: 1.05;
+  letter-spacing: 0.12em;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  border-radius: 3px;
+  transform: rotate(-2.5deg);
+  box-shadow: 0 2px 10px rgba(124, 43, 33, 0.2);
+  user-select: none;
+}
+
+.seal--lg {
+  width: 84px;
+  height: 84px;
+  font-size: 16px;
+  letter-spacing: 0.16em;
+  padding: 9px;
+}
+
+/* 入场动效 */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, var(--reveal-y, 26px), 0);
+  transition:
+    opacity 900ms var(--ease) var(--reveal-delay, 0ms),
+    transform 900ms var(--ease) var(--reveal-delay, 0ms);
+  will-change: transform, opacity;
+}
+
+.reveal.is-revealed {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* 移动端断点 */
+@media (max-width: 860px) {
+  .sec-head {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .sec-head__lead::first-letter {
+    font-size: 2.2em;
+  }
+  .vertical {
+    writing-mode: horizontal-tb;
+    text-orientation: mixed;
+  }
+}
+
+/* ============================ 无障碍 ============================ */
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -80px;
+  z-index: 300;
+  padding: 10px 18px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  transition: top 240ms var(--ease);
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+/* 统一降低动态效果 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

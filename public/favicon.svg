@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="5" fill="#9c3b2e" />
+  <rect x="5" y="5" width="54" height="54" rx="2" fill="none" stroke="#f4eddf" stroke-opacity="0.55" stroke-width="1.5" />
+  <text x="32" y="33" text-anchor="middle" dominant-baseline="central" font-family="Songti SC, SimSun, serif"
+    font-size="38" font-weight="600" fill="#f8f2e6">宋</text>
+</svg>
